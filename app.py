@@ -58,6 +58,8 @@ def students():
             )
         )
         con.commit()
+        con.close()
+        return redirect("/students")
 
     search = request.args.get("search")
     if search:
@@ -81,7 +83,7 @@ def logout():
 
 @app.route("/delete/<int:id>")
 def delete_student(id):
-    con = sqlite3.connect("database.db")
+    con = get_db()
     cur = con.cursor()
     cur.execute("DELETE FROM students WHERE id = ?", (id,))
     con.commit()
@@ -89,7 +91,7 @@ def delete_student(id):
     return redirect("/students")
 @app.route("/edit/<int:id>", methods=["GET", "POST"])
 def edit_student(id):
-    con = sqlite3.connect("database.db")
+    con = get_db()
     cur = con.cursor()
 
     if request.method == "POST":
