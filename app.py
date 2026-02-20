@@ -23,7 +23,7 @@ def login():
             session["user"] = u
             return redirect("/dashboard")
 
-    return render_template("login.html")
+    return render_template("index.html")
 
 @app.route("/dashboard")
 def dashboard():
